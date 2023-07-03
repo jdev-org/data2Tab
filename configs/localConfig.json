@@ -269,7 +269,7 @@
                     }
                 }
             }, "Login",
-            "OmniBar", "BurgerMenu", "Expander", "GlobeViewSwitcher", {
+            "OmniBar", "SidebarMenu", "Expander", "GlobeViewSwitcher", {
               "name": "Cookie",
               "cfg": {
                 "externalCookieUrl" : "",
@@ -278,7 +278,7 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "SampleExtension",
+        "desktop": ["Details", "d2t",
           {
             "name": "Map",
             "cfg": {
@@ -398,7 +398,7 @@
                 }
             }, {
               "name": "About",
-              "showIn": ["BurgerMenu"]
+              "showIn": ["SidebarMenu"]
             }
             , {
               "name": "MousePosition",
@@ -470,7 +470,7 @@
                 "declineUrl" : "http://www.google.com"
                 }
             },
-            "OmniBar", "Login", "Save", "SaveAs", "BurgerMenu", "Expander", "Undo", "Redo", "FullScreen", "GlobeViewSwitcher", "SearchServicesConfig", "SearchByBookmark", "WidgetsBuilder", "Widgets",
+            "OmniBar", "Login", "Save", "SaveAs", "SidebarMenu", "Expander", "Undo", "Redo", "FullScreen", "GlobeViewSwitcher", "SearchServicesConfig", "SearchByBookmark", "WidgetsBuilder", "Widgets",
             "WidgetsTray",
             "Timeline",
             "Playback",
@@ -679,7 +679,7 @@
             },
             "containerPosition": "columns"
           }
-        }, "BurgerMenu", "Dashboard", "Notifications", {
+        }, "SidebarMenu", "Dashboard", "Notifications", {
             "name": "Tutorial",
             "cfg": {
                 "allowClicksThruHole": false,
@@ -710,7 +710,7 @@
             }
           },
           "Login",
-          "BurgerMenu",
+          "SidebarMenu",
           "Language",
           "NavMenu",
           "Attribution",

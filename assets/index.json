@@ -1,7 +1,7 @@
 {
   "plugins": [
     {
-      "name": "SampleExtension",
+      "name": "d2t",
       "dependencies": [
         "Toolbar"
       ]

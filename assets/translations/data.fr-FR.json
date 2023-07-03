@@ -1,8 +1,8 @@
     {
-    "locale": "en-US",
+    "locale": "fr-FR",
     "messages": {
         "d2t": {
-            "tooltip": "Message!"
+            "tooltip": "Messaggio!"
         }
     }
 }
