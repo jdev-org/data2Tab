@@ -1,0 +1,3 @@
+/**
+ * Common tab component
+ */
