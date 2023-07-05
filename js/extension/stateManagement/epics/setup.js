@@ -1,19 +1,19 @@
 import Rx from 'rxjs';
 import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
-import { updateAdditionalLayer, removeAdditionalLayer } from '@mapstore/actions/additionallayers';
-import { hideMapinfoMarker, purgeMapInfoResults, toggleMapInfoState } from '@mapstore/actions/mapInfo';
-import { isTabou2Activate } from '../selectors/tabou2';
-import { PANEL_SIZE, TABOU_VECTOR_ID, TABOU_OWNER, TABOU_MARKER_LAYER_ID } from '../constants';
-import { SETUP, CLOSE } from "../actions/actions";
-import { get } from "lodash";
-import { defaultIconStyle } from "@mapstore/utils/SearchUtils";
-import iconUrl from "@mapstore/components/map/openlayers/img/marker-icon.png";
+import {
+    hideMapinfoMarker,
+    purgeMapInfoResults,
+    toggleMapInfoState,
+} from "@mapstore/actions/mapInfo";
+import { isActive } from "../selector/selector";
+import { PANEL_SIZE, CONTROL_NAME } from "../../constants";
 
-import { CONTROL_NAME } from "../../../constants";
+import { CLOSE, SETUP } from "../actions/actions";
+import { get } from "lodash";
 
 import {
     registerEventListener,
-    unRegisterEventListener
+    unRegisterEventListener,
 } from "@mapstore/actions/map";
 
 const OFFSET = PANEL_SIZE;
@@ -24,10 +24,11 @@ const OFFSET = PANEL_SIZE;
  * @returns
  */
 export const setTbarPosition = (action$, store) =>
-    action$.ofType(UPDATE_MAP_LAYOUT)
-        .filter(() => isTabou2Activate(store.getState()))
+    action$
+        .ofType(UPDATE_MAP_LAYOUT)
+        .filter(() => isActive(store.getState()))
         .filter(({ source }) => {
-            return source !== 'tabou2';
+            return source !== CONTROL_NAME;
         })
         .map(({ layout }) => {
             const action = updateMapLayout({
@@ -35,11 +36,11 @@ export const setTbarPosition = (action$, store) =>
                 right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0),
                 boundingMapRect: {
                     ...(layout.boundingMapRect || {}),
-                    right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0)
+                    right: OFFSET + (layout?.boundingSidebarRect?.right ?? 0),
                 },
-                rightPanel: true
+                rightPanel: true,
             });
-            return { ...action, source: 'tabou2' }; // add an argument to avoid infinite loop.
+            return { ...action, source: CONTROL_NAME }; // add an argument to avoid infinite loop.
         });
 /**
  * Create additional layers
@@ -53,18 +54,19 @@ export const initMap = (action$, store) =>
         return Rx.Observable.defer(() => {
             return Rx.Observable.from([
                 registerEventListener("click", CONTROL_NAME),
+            ]);
             // disable click info right panel
-            ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
+            //]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
         }).startWith({
-            type: 'MAP_LAYOUT:UPDATE_DOCK_PANELS',
-            name: 'tabou2',
-            action: 'add',
-            location: 'right'
+            type: "MAP_LAYOUT:UPDATE_DOCK_PANELS",
+            name: CONTROL_NAME,
+            action: "add",
+            location: "right",
         });
     });
 
 export const closeExtension = (action$, {getState = ()=>{}}) =>
-    action$.ofType(CLOSE_TABOU).switchMap(() => {
+    action$.ofType(CLOSE).switchMap(() => {
         const mapInfoEnabled = get(getState(), "mapInfo.enabled");
         return Rx.Observable.from([
             unRegisterEventListener("click", CONTROL_NAME),

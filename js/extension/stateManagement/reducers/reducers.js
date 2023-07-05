@@ -6,7 +6,8 @@ import {
 } from "../actions/actions";
 
 const initialState = {
-    tabs: [],
+    pluginCfg: {},
+    tabs: [{}],
     tab: "",
     fields: [],
     documents: {
@@ -17,10 +18,9 @@ const initialState = {
     activate: false,
     docsManager: false,
     properties: [],
-    defaultConfig: {}
 };
 
-export const reducer = (state = initialState, action) => {
+export default function reducers (state = initialState, action) {
     switch (action.type) {
         case SET_FEATURE:
             const properties = Object.values(action.feature?.properties);
@@ -31,8 +31,7 @@ export const reducer = (state = initialState, action) => {
         case SET_ACTIVE_TAB:
             return set('tab', action.tab, state);
         case SETUP:
-            const { config } = action;
-            return set(`defaultConfig`, config, state);
+            return set('pluginCfg', action.cfg, state);
 
         default:
             return state;

@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 
-export default () => (Component) => ({ setup = () => { }, close = () => { }, ...props }) => {
+export default () => (Component) => ({ setup = () => { }, openOnLoad, open, ...props }) => {
     // configuration load and initial setup
     useEffect(() => {
-        console.log(props?.pluginCfg);
-        if (props.enabled) {
+        if (props.active) {
             setup(props?.pluginCfg);
         }
-        return () => {
-            close(props?.pluginCfg);
-        };
-    }, [props.enabled]);
+    }, [props.active]);
     return <Component {...props} />;
 };

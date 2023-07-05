@@ -11,43 +11,35 @@ export const SET_CONFIG = "SET_CONFIG";
 export const CLOSE = "SET_FEATURE";
 export const SHOW_NOTIFICATIONS = "SHOW_NOTIFICATIONS";
 
-
 /**
- * 
- * @param {string} level 
- * @param {string} title 
- * @param {string} message 
- * @returns 
+ *
+ * @param {string} level
+ * @param {string} title
+ * @param {string} message
+ * @returns
  */
 export const displayMsg = (level, title, message) => ({
     type: DISPLAY_MSG,
     level,
     title,
-    message
+    message,
 });
 
 /**
  * setup
  * @returns {}
  */
-export const setup = (config) => ({
+export const setup = (cfg) => ({
     type: SETUP,
-    config
+    cfg
 });
-
-export const setConfiguration = config => {
-    return {
-        type: SET_CONFIG,
-        config
-    };
-};
 
 /**
  * close
  * @returns {}
  */
 export const close = () => ({
-    type: CLOSE
+    type: CLOSE,
 });
 
 /**
@@ -106,7 +98,7 @@ export const getDocument = (id) => ({
  * @returns {{id:string}}
  */
 export const getAllDocuments = () => ({
-    type: GET_ALL_DOCUMENTS
+    type: GET_ALL_DOCUMENTS,
 });
 
 /**
@@ -116,7 +108,7 @@ export const getAllDocuments = () => ({
  */
 export const setDocuments = (documents = []) => ({
     type: SET_DOCUMENTS,
-    documents
+    documents,
 });
 
 /**
