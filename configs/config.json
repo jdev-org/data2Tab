@@ -1,20 +1,128 @@
 {
+  "version": 2,
   "map": {
+    "center": {
+      "x": -1.5311420033805745,
+      "y": 48.12298614414182,
+      "crs": "EPSG:4326"
+    },
+    "maxExtent": [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
     "projection": "EPSG:900913",
     "units": "m",
-    "center": {"x": 1250000.000000, "y": 5370000.000000, "crs": "EPSG:900913"},
-    "zoom":5,
-    "maxExtent": [
-      -20037508.34, -20037508.34,
-      20037508.34, 20037508.34
+    "zoom": 10,
+    "mapOptions": {},
+    "layers": [
+      {
+        "id": "mapnik__0",
+        "group": "background",
+        "source": "osm",
+        "name": "mapnik",
+        "title": "Open Street Map",
+        "type": "osm",
+        "visibility": true,
+        "singleTile": false,
+        "dimensions": [],
+        "hideLoading": false,
+        "handleClickOnLayer": false,
+        "useForElevation": false,
+        "hidden": false
+      },
+      {
+        "id": "tabou:commune_emprise__fc2c9f60-1b3a-11ee-8516-0199dad95f91",
+        "format": "image/png",
+        "search": { "url": "https://gis.jdev.fr/geoserver/wfs", "type": "wfs" },
+        "name": "tabou:commune_emprise",
+        "description": "commune_emprise",
+        "title": "commune_emprise",
+        "type": "wms",
+        "url": "https://gis.jdev.fr/geoserver/wms",
+        "bbox": {
+          "crs": "EPSG:4326",
+          "bounds": {
+            "minx": "-2.137153022080178",
+            "miny": "47.76211041374482",
+            "maxx": "-1.330668448734819",
+            "maxy": "48.410195228519044"
+          }
+        },
+        "visibility": true,
+        "singleTile": false,
+        "allowedSRS": { "EPSG:3857": true, "EPSG:4326": true },
+        "dimensions": [],
+        "hideLoading": false,
+        "handleClickOnLayer": false,
+        "catalogURL": null,
+        "useForElevation": false,
+        "hidden": false,
+        "version": "1.3.0",
+        "params": {}
+      },
+      {
+        "id": "bthd:elagage__fd0e25c0-1b3a-11ee-8516-0199dad95f91",
+        "format": "image/png",
+        "search": { "url": "https://gis.jdev.fr/geoserver/wfs", "type": "wfs" },
+        "name": "bthd:elagage",
+        "description": "elagage",
+        "title": "elagage",
+        "type": "wms",
+        "url": "https://gis.jdev.fr/geoserver/wms",
+        "bbox": {
+          "crs": "EPSG:4326",
+          "bounds": {
+            "minx": "-2.996185442195058",
+            "miny": "48.27014151911434",
+            "maxx": "-1.656369560659839",
+            "maxy": "48.387458523089514"
+          }
+        },
+        "visibility": true,
+        "singleTile": false,
+        "allowedSRS": { "EPSG:3857": true, "EPSG:4326": true },
+        "dimensions": [],
+        "hideLoading": false,
+        "handleClickOnLayer": false,
+        "catalogURL": null,
+        "useForElevation": false,
+        "hidden": false,
+        "version": "1.3.0",
+        "params": {}
+      }
     ],
-    "layers": [{
-      "type": "osm",
-      "title": "Open Street Map",
-      "name": "mapnik",
-            "source": "osm",
-      "group": "background",
-            "visibility": true
-        }]
-  }
+    "groups": [{ "id": "Default", "title": "Default", "expanded": true }],
+    "backgrounds": [],
+    "bookmark_search_config": {}
+  },
+  "catalogServices": {
+    "services": {
+      "jdev_wms": {
+        "url": "https://gis.jdev.fr/geoserver/wms",
+        "type": "wms",
+        "title": "JDev GeoServer WMS",
+        "autoload": false
+      },
+      "gs_stable_csw": {
+        "url": "https://gs-stable.geo-solutions.it/geoserver/csw",
+        "type": "csw",
+        "title": "GeoSolutions GeoServer CSW",
+        "autoload": true
+      },
+      "gs_stable_wms": {
+        "url": "https://gs-stable.geo-solutions.it/geoserver/wms",
+        "type": "wms",
+        "title": "GeoSolutions GeoServer WMS",
+        "autoload": false
+      },
+      "gs_stable_wmts": {
+        "url": "https://gs-stable.geo-solutions.it/geoserver/gwc/service/wmts",
+        "type": "wmts",
+        "title": "GeoSolutions GeoServer WMTS",
+        "autoload": false
+      }
+    },
+    "selectedService": "jdev_wms"
+  },
+  "widgetsConfig": {},
+  "mapInfoConfiguration": { "trigger": "click" },
+  "dimensionData": {},
+  "timelineData": { "snapRadioButtonEnabled": false }
 }

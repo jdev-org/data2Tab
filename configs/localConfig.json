@@ -2,13 +2,7 @@
     "proxyUrl": {
         "url": "proxy/?url=",
         "useCORS": [
-          "http://demo.geo-solutions.it/geoserver",
-          "https://demo.geo-solutions.it:443/geoserver",
-          "https://demo.geo-solutions.it/geoserver",
-          "https://nominatim.openstreetmap.org",
-          "http://cloudsdi.geo-solutions.it",
-          "https://gs-stable.geo-solutions.it/geoserver",
-          "https://gs-stable.geo-solutions.it:443/geoserver"
+          "https://gis.jdev.fr/geoserver"
         ]
     },
     "geoStoreUrl": "rest/geostore/",
@@ -78,8 +72,14 @@
                 "isNew": true,
                 "autoload": false
             },
-            "selectedService": "gs_stable_csw",
+            "selectedService": "jdev_wms",
             "services": {
+              "jdev_wms": {
+                "url": "https://gis.jdev.fr/geoserver/wms",
+                "type": "wms",
+                "title": "JDev GeoServer WMS",
+                "autoload": false
+              },              
               "gs_stable_csw": {
                 "url": "https://gs-stable.geo-solutions.it/geoserver/csw",
                 "type": "csw",
@@ -281,7 +281,10 @@
         "desktop": ["Details", {
           "name": "d2t",
           "cfg": {
-            "test": "OK"
+            "icon": "tint",
+            "title": "Cart'eaux",
+            "description": "Module Cart'eaux",
+            "tabs": ["A", "B", "C"]
           }
         },
           {
