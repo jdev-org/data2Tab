@@ -2,7 +2,8 @@
     "locale": "fr-FR",
     "messages": {
         "d2t": {
-            "tooltip": "Messaggio!"
+            "tooltip": "Data2Tab",
+            "title": "Data2Tab"
         }
     }
 }

@@ -278,7 +278,12 @@
             },
             "FeedbackMask"
         ],
-        "desktop": ["Details", "d2t",
+        "desktop": ["Details", {
+          "name": "d2t",
+          "cfg": {
+            "test": "OK"
+          }
+        },
           {
             "name": "Map",
             "cfg": {
