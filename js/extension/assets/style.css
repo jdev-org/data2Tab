@@ -1,10 +1,4 @@
-#SAMPLE_EXTENSION {
-    background-color: rgba(255,255,255,.9);
-    border-radius: 10px;
-    max-width: 550px;
-    padding: 10px;
-    margin: 10px;
-    position: absolute;
-    top: 50px;
-    z-index: 1000;
+.d2t-tab-content,
+.d2t-description {
+    padding-left: 10px;
 }

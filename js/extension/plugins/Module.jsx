@@ -4,7 +4,7 @@ import { toggleControl } from "@mapstore/actions/controls";
 import { mapLayoutValuesSelector } from "@mapstore/selectors/maplayout";
 import { createPlugin } from "@mapstore/utils/PluginsUtils";
 import ExtensionComponent from "../components/Component";
-import { getPluginCfg, isActive } from "../stateManagement/selector/selector";
+import { getDescription, getPluginCfg, isActive } from "../stateManagement/selector/selector";
 
 import { CONTROL_NAME, PANEL_SIZE } from "../constants";
 
@@ -28,7 +28,7 @@ export default createPlugin(name, {
                 active: isActive(state),
                 icon: getPluginCfg(state).icon,
                 title: getPluginCfg(state).title,
-                description: getPluginCfg(state).description,
+                description: getDescription(state),
                 dockStyle: mapLayoutValuesSelector(
                     state,
                     { right: true, height: true },

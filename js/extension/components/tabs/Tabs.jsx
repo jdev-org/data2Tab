@@ -4,43 +4,76 @@
 import { connect } from "react-redux";
 import { setActiveTab } from "@js/extension/stateManagement/actions/actions";
 import {
-    getTabFields,
+    getTabs,
     getFeature,
     getTabsList,
+    getTab,
 } from "@js/extension/stateManagement/selector/selector";
 import React from "react";
-import { Tabs as BootstrapTabs, Tab } from "react-bootstrap";
+import {
+    Tabs as BootstrapTabs,
+    Tab,
+    Form,
+    FormGroup,
+    Col,
+    FormControl,
+} from "react-bootstrap";
 import Message from "@mapstore/plugins/locale/Message";
-
-const component = ({
+import "./Tabs.css";
+const Tabs = ({
     tabs = [],
     tab = 1,
+    fields,
     featureId,
-    onClick = () => { }
+    properties,
+    onSelect = () => {},
 }) => {
     if (!featureId) {
-        return <Message msgId="d2t.noFeature"/>
+        return <Message msgId="d2t.noFeature" />;
     }
-    return <BootstrapTabs defaultActiveKey={tab} id="uncontrolled-tab-example">
-        {tabs.map((tab, n) => (
-            <Tab
-                key={n}
-                onClick={() => onClick(n)}
-                eventKey={n}
-                title={tab}
-            ></Tab>
-        ))}
-    </BootstrapTabs>
+    const getValue = (field) =>
+        typeof field == "string" ? properties[field] : properties[field[0]];
+    const getLabel = (field) => (typeof field == "string" ? field : field[1]);
+    return (
+        <div className="d2t-tab-content">
+            <BootstrapTabs
+                activeKey={tab}
+                id={"d2t-tabs"}
+                onSelect={(n) => onSelect(n)}
+            >
+                {tabs.map((tabName, n) => (
+                    <Tab key={n} eventKey={n} title={tabName}>
+                        <Form>
+                            <FormGroup>
+                                {fields[tabName].map((field) => (
+                                    <div className="d2t-form-field">
+                                        <Col className="d2t-field-label" sm={3}>{getLabel(field)}</Col>
+                                        <Col className="d2t-field-value" sm={9}>
+                                            <FormControl
+                                                type="text"
+                                                value={getValue(field)}
+                                            />
+                                        </Col>
+                                    </div>
+                                ))}
+                            </FormGroup>
+                        </Form>
+                    </Tab>
+                ))}
+            </BootstrapTabs>
+        </div>
+    );
 };
 
 export default connect(
     (state) => ({
         tabs: getTabsList(state),
-        fields: getTabFields(state),
-        // fields: getFields(state),
-        featureId: getFeature(state)?.properties?.id
+        tab: getTab(state),
+        fields: getTabs(state),
+        featureId: getFeature(state)?.properties?.id,
+        properties: getFeature(state)?.properties,
     }),
     {
-        onClick: setActiveTab,
+        onSelect: setActiveTab,
     }
-)(component);
+)(Tabs);

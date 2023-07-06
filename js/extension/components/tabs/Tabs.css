@@ -1,0 +1,23 @@
+.nav-tabs li {
+    border: none
+}
+
+.nav-tabs>li>a {
+    border: none;
+    color: #078aa3;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid #078aa3;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus {
+    background-color: #078aa3;
+    border: none;
+    color: white;
+}
+
+.d2t-form-field {
+    padding-top: 10px;
+}

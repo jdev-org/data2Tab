@@ -56,10 +56,12 @@ export const close = () => ({
  * @param {string} activeTab
  * @returns {{activeTab: string}}
  */
-export const setActiveTab = (activeTab) => ({
-    type: SET_ACTIVE_TAB,
-    activeTab,
-});
+export const setActiveTab = (index) => {
+    return {
+        type: SET_ACTIVE_TAB,
+        index,
+    };
+};
 
 /**
  * Upload a document

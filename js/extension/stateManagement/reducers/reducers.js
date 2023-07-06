@@ -8,7 +8,7 @@ import {
 const initialState = {
     pluginCfg: {},
     tabs: [{}],
-    tab: "",
+    tab: 0,
     fields: [],
     documents: {
         ids: [],
@@ -17,23 +17,16 @@ const initialState = {
     feature: null,
     activate: false,
     docsManager: false,
-    properties: [],
 };
 
 export default function reducers(state = initialState, action) {
     switch (action.type) {
         case SET_FEATURE:
-            const properties = Object.values(action.feature?.properties);
-            return compose(
-                set("feature", action?.feature),
-                set("properties", properties || [])
-            )(state);
+            return set("feature", action?.feature, state);
         case SET_ACTIVE_TAB:
-            return set("tab", action.tab, state);
+            return set("tab", action.index, state);
         case SETUP:
-            console.log(action.cfg);
             return set("pluginCfg", action.cfg, state);
-
         default:
             return state;
     }

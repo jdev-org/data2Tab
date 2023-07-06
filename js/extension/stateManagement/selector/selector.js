@@ -6,64 +6,46 @@ export const isActive = (state) => {
 export const getTabs = (state) =>
     state?.d2t?.pluginCfg && state?.d2t?.pluginCfg?.tabs;
 export const getTabsList = (state) => getTabs(state) && keys(getTabs(state));
-export const getTabFields = (state) => {
-    const tabs = getTabs(state);
-    if (!tabs) return [];
-    const fields = state?.d2t?.tab ? tabs[state?.d2t?.tab[0]] : tabs[tabs[0]];
-    return fields;
-};
-export const getTab = state => state?.d2t?.tab;
-export const getFeature = state => state?.d2t?.feature;
-export const getFeatureProperties = state => state?.d2t?.properties;
-export const getLayer = state => state?.d2t?.activeLayer;
+export const getTab = (state) => state?.d2t?.tab;
+export const getFeature = (state) => state?.d2t?.feature;
+export const getLayer = (state) => state?.d2t?.activeLayer;
 
-export const getDocuments = state => state?.d2t.documents?.documents;
-export const getIdsDocuments = state => state?.d2t?.documents?.ids;
+export const getDocuments = (state) => state?.d2t.documents?.documents;
+export const getIdsDocuments = (state) => state?.d2t?.documents?.ids;
 
-export const getApi = state => state?.d2t?.api;
+export const getApi = (state) => state?.d2t?.api;
 
-export const getFields = state => state?.d2t?.fields;
+export const getFields = (state) => state?.d2t?.fields;
 
 /**
  * Get plugin config
  * @param {*} state
  * @returns {object}
  */
-export const getPluginCfg = state => state?.d2t?.pluginCfg;
+export const getPluginCfg = (state) => state?.d2t?.pluginCfg;
+
+export const getDescription = (state) => {
+    let description = state.d2t.pluginCfg.description;
+    let feature = state?.d2t?.feature;
+    if (feature && feature.properties[description]) {
+        return feature.properties[description];
+    }
+    return description;
+};
 
 // to emulate authentication use test_env and sec-roles header as : "ROLE_MAPSTORE_ADMIN;ROLE_EL_APPLIS_CAD_CNIL1" (; separator)
 export const getAuthLevel = (state) => {
     const groups = userGroupSecuritySelector(state) ?? [];
     const groupNames = groups.map(({ groupName }) => groupName);
     return {
-        reader: groupNames.includes(getPluginCfg(state).reader || "ROLE_SV_CARTEAUX_READ"),
-        writer: groupNames.includes(getPluginCfg(state).writer || "ROLE_SV_CARTEAUX_WRITE"),
+        reader: groupNames.includes(
+            getPluginCfg(state).reader || "ROLE_SV_CARTEAUX_READ"
+        ),
+        writer: groupNames.includes(
+            getPluginCfg(state).writer || "ROLE_SV_CARTEAUX_WRITE"
+        ),
     };
-}
+};
 
-export const boundingSidebarRectSelector = (state) => state.maplayout && state.maplayout.boundingSidebarRect || {};
-
-// /**
-//  * Retrieve only specific attribute from map layout
-//  * @function
-//  * @memberof selectors.mapLayout
-//  * @param  {object} state the state
-//  * @param  {object} attributes attributes to retrieve, bool {left: true}
-//  * @param  {boolean} isDock flag to use dock paddings instead of toolbar paddings
-//  * @return {object} selected attributes of layout of the map
-//  */
-// export const mapLayoutValuesSelector = memoize((state, attributes = {}, isDock = false) => {
-//     const layout = mapLayoutSelector(state);
-//     const boundingSidebarRect = boundingSidebarRectSelector(state);
-//     return layout && Object.keys(layout).filter(key =>
-//         attributes[key]).reduce((a, key) => {
-//         if (isDock) {
-//             return ({...a, [key]: (boundingSidebarRect[key] ?? layout[key])});
-//         }
-//         return ({...a, [key]: layout[key]});
-//     },
-//     {}) || {};
-// }, (state, attributes, isDock) =>
-//     JSON.stringify(mapLayoutSelector(state)) +
-//     JSON.stringify(boundingSidebarRectSelector(state)) +
-//     JSON.stringify(attributes) + (isDock ? '_isDock' : ''));
+export const boundingSidebarRectSelector = (state) =>
+    (state.maplayout && state.maplayout.boundingSidebarRect) || {};

@@ -3,6 +3,7 @@ import Message from "@mapstore/components/I18N/Message";
 import ResponsivePanel from "@mapstore/components/misc/panels/ResponsivePanel";
 import { CONTROL_NAME } from "../constants";
 import Tabs from "../components/tabs/Tabs";
+import { Row, Col } from "react-bootstrap";
 const Extension = ({
     active = false,
     dockStyle = {},
@@ -27,10 +28,12 @@ const Extension = ({
             onClose={() => onClose()}
             style={dockStyle}
         >
-            <div className="container">
-                {description && <h3>{description}</h3>}
-                <Tabs />
-            </div>
+            <Row>
+                <Col xs={12}>
+                    {description && <h3 className="d2t-description">{description}</h3>}
+                    <Tabs />
+                </Col>
+            </Row>
         </ResponsivePanel>
     );
 };
