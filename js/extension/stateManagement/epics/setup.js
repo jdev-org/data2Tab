@@ -1,17 +1,17 @@
 import Rx from 'rxjs';
 import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
 import {
-    hideMapinfoMarker,
-    purgeMapInfoResults,
     toggleMapInfoState,
+    changeMapInfoState,
 } from "@mapstore/actions/mapInfo";
 import { isActive } from "../selector/selector";
 import { PANEL_SIZE, CONTROL_NAME } from "../../constants";
-
+import { mapInfoDisabledSelector } from "@mapstore/selectors/mapInfo";
 import { CLOSE, SETUP } from "../actions/actions";
 import { get } from "lodash";
 
 import {
+    CLICK_ON_MAP,
     registerEventListener,
     unRegisterEventListener,
 } from "@mapstore/actions/map";
@@ -54,9 +54,8 @@ export const initMap = (action$, store) =>
         return Rx.Observable.defer(() => {
             return Rx.Observable.from([
                 registerEventListener("click", CONTROL_NAME),
-            ]);
-            // disable click info right panel
-            //]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
+                // disable click info right panel
+            ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
         }).startWith({
             type: "MAP_LAYOUT:UPDATE_DOCK_PANELS",
             name: CONTROL_NAME,
@@ -65,11 +64,28 @@ export const initMap = (action$, store) =>
         });
     });
 
-export const closeExtension = (action$, {getState = ()=>{}}) =>
+export const closeExtension = (action$, { getState = () => {} }) =>
     action$.ofType(CLOSE).switchMap(() => {
         const mapInfoEnabled = get(getState(), "mapInfo.enabled");
         return Rx.Observable.from([
             unRegisterEventListener("click", CONTROL_NAME),
-        // enable click info right panel if needed
+            // enable click info right panel if needed
         ]).concat([...(!mapInfoEnabled ? [toggleMapInfoState()] : [])]);
     });
+
+/**
+ * Toggle identify off when cadastrap selection tool is active
+ * @param action$
+ * @param store
+ * @returns {Observable<unknown>}
+ */
+export const toggleMapInfoOnActiveTool = (action$, store) =>
+    action$
+        .ofType(CLICK_ON_MAP)
+        .filter(() => {
+            const state = store.getState();
+            return isActive(state) && !mapInfoDisabledSelector(state);
+        })
+        .switchMap(() => {
+            return Rx.Observable.of(changeMapInfoState(false));
+        });

@@ -10,6 +10,15 @@ export const SETUP = "SETUP";
 export const SET_CONFIG = "SET_CONFIG";
 export const CLOSE = "SET_FEATURE";
 export const SHOW_NOTIFICATIONS = "SHOW_NOTIFICATIONS";
+export const SHOW_CONTENT = "SHOW_CONTENT";
+
+export const showContent = (layer, feature) => {
+    return {
+        type: SHOW_CONTENT,
+        layer,
+        feature,
+    };
+};
 
 /**
  *
@@ -31,7 +40,7 @@ export const displayMsg = (level, title, message) => ({
  */
 export const setup = (cfg) => ({
     type: SETUP,
-    cfg
+    cfg,
 });
 
 /**
@@ -127,8 +136,7 @@ export const deleteDocument = (id) => ({
  * @param {object} feature
  * @returns  {{id: string, feature: object}}
  */
-export const setFeature = (id, feature) => ({
+export const setFeature = (feature) => ({
     type: SET_FEATURE,
-    id,
     feature,
 });

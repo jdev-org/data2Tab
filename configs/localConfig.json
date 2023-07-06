@@ -284,7 +284,15 @@
             "icon": "tint",
             "title": "Cart'eaux",
             "description": "Module Cart'eaux",
-            "tabs": ["A", "B", "C"]
+            "layer": "tabou:commune_emprise",
+            "tabs": {
+              "Général": [
+                "id", ["code_insee", "code insee"], "nom", ["code_posta", "code_postal"]
+              ],
+              "Système": [
+                  ["commune_ag", "commune"], ["x_centrbrg", "x"], ["y_centrbrg", "y"]
+              ]
+            }
           }
         },
           {
@@ -535,7 +543,8 @@
                     "fluid": true,
                     "viewerOptions": {
                         "container": "{context.ReactSwipe}"
-                    }
+                    },
+                    "infoFormat": "application/json"
                 }
             }, {
                 "name": "ZoomAll",

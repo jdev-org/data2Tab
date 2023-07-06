@@ -50,7 +50,7 @@ export default createPlugin(name, {
         )
     )(ExtensionComponent),
     reducers: { d2t: reducers },
-    epics,
+    epics: {...epics},
     containers: {
         SidebarMenu: {
             name: CONTROL_NAME,

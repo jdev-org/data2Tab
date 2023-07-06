@@ -20,18 +20,19 @@ const initialState = {
     properties: [],
 };
 
-export default function reducers (state = initialState, action) {
+export default function reducers(state = initialState, action) {
     switch (action.type) {
         case SET_FEATURE:
             const properties = Object.values(action.feature?.properties);
             return compose(
-                set('feature', action?.feature),
-                set('properties', properties || [])
+                set("feature", action?.feature),
+                set("properties", properties || [])
             )(state);
         case SET_ACTIVE_TAB:
-            return set('tab', action.tab, state);
+            return set("tab", action.tab, state);
         case SETUP:
-            return set('pluginCfg', action.cfg, state);
+            console.log(action.cfg);
+            return set("pluginCfg", action.cfg, state);
 
         default:
             return state;

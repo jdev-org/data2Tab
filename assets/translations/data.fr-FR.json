@@ -3,7 +3,8 @@
     "messages": {
         "d2t": {
             "tooltip": "Data2Tab",
-            "title": "Data2Tab"
+            "title": "Data2Tab",
+            "noFeature": "Aucun résultat !"
         }
     }
 }

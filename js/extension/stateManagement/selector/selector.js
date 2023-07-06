@@ -1,9 +1,17 @@
 import { userGroupSecuritySelector } from '@mapstore/selectors/security';
-export const isActive = state => {
+import { keys } from "lodash";
+export const isActive = (state) => {
     return state?.controls?.d2t?.enabled;
-}
-
-export const getTabs = (state) => state?.pluginCfg?.tab;
+};
+export const getTabs = (state) =>
+    state?.d2t?.pluginCfg && state?.d2t?.pluginCfg?.tabs;
+export const getTabsList = (state) => getTabs(state) && keys(getTabs(state));
+export const getTabFields = (state) => {
+    const tabs = getTabs(state);
+    if (!tabs) return [];
+    const fields = state?.d2t?.tab ? tabs[state?.d2t?.tab[0]] : tabs[tabs[0]];
+    return fields;
+};
 export const getTab = state => state?.d2t?.tab;
 export const getFeature = state => state?.d2t?.feature;
 export const getFeatureProperties = state => state?.d2t?.properties;

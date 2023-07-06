@@ -4,22 +4,29 @@
 import { connect } from "react-redux";
 import { setActiveTab } from "@js/extension/stateManagement/actions/actions";
 import {
-    getTab,
-    getPluginCfg ,
+    getTabFields,
+    getFeature,
+    getTabsList,
 } from "@js/extension/stateManagement/selector/selector";
 import React from "react";
 import { Tabs as BootstrapTabs, Tab } from "react-bootstrap";
+import Message from "@mapstore/plugins/locale/Message";
 
 const component = ({
     tabs = [],
     tab = 1,
+    featureId,
     onClick = () => { }
 }) => {
+    if (!featureId) {
+        return <Message msgId="d2t.noFeature"/>
+    }
     return <BootstrapTabs defaultActiveKey={tab} id="uncontrolled-tab-example">
         {tabs.map((tab, n) => (
             <Tab
-                onclick={() => onClick(n + 1)}
-                eventKey={n + 1}
+                key={n}
+                onClick={() => onClick(n)}
+                eventKey={n}
                 title={tab}
             ></Tab>
         ))}
@@ -28,8 +35,10 @@ const component = ({
 
 export default connect(
     (state) => ({
-        tabs: getPluginCfg(state).tabs,
-        tab: getTab(state),
+        tabs: getTabsList(state),
+        fields: getTabFields(state),
+        // fields: getFields(state),
+        featureId: getFeature(state)?.properties?.id
     }),
     {
         onClick: setActiveTab,
