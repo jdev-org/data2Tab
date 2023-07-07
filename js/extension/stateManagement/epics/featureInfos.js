@@ -9,10 +9,8 @@ import { layersSelector } from "@mapstore/selectors/layers";
 
 import { CLICK_ON_MAP } from "@mapstore/actions/map";
 
-import { isActive } from "../selector/selector";
-
-import { getPluginCfg } from "../selector/selector";
-import { setFeature } from "../actions/actions";
+import { getAuthLevel, getPluginCfg, isActive } from "../selector/selector";
+import { displayMsg, setFeature } from "../actions/actions";
 import { getFeatureInfo } from "@mapstore/api/identify";
 
 // plugin action
@@ -21,7 +19,9 @@ import { getFeatureInfo } from "@mapstore/api/identify";
 export const clickMap = (action$, store) => {
     return action$
         .ofType(CLICK_ON_MAP)
-        .filter(() => isActive(store.getState()))
+        .filter(
+            () => isActive(store.getState()) && getAuthLevel(store.getState())
+        )
         .switchMap((action) => {
             let latlng = action.point.latlng;
             let tocLayer = layersSelector(store.getState()).filter(
@@ -42,14 +42,34 @@ export const clickMap = (action$, store) => {
             return Rx.Observable.defer(() =>
                 getFeatureInfo(url, request, tocLayer, {})
             )
-                .catch((e) => {
-                    console.log("Error to retrieve feature from GFI");
-                    console.log(e);
+                .catch(() => {
+                    // todo : use common alert component
+                    displayMsg(
+                        "error",
+                        "d2t.request.error",
+                        "d2t.request.fail"
+                    );
                     return Rx.Observable.of({});
                 })
                 .switchMap((response) => {
-                    if (isEmpty(response)) return Rx.Observable.empty();
-                    return Rx.Observable.of(setFeature(response.features[0]));
+                    if (isEmpty(response) || isEmpty(response.features)) {
+                        return Rx.Observable.of(
+                            setFeature(null),
+                            displayMsg(
+                                "info",
+                                "d2t.search.title",
+                                "d2t.search.notFound"
+                            )
+                        );
+                    }
+                    return Rx.Observable.of(
+                        setFeature(response.features[0]),
+                        displayMsg(
+                            "success",
+                            "d2t.search.title",
+                            "d2t.search.found"
+                        )
+                    );
                 });
         });
 };

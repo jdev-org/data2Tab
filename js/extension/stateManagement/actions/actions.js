@@ -11,12 +11,13 @@ export const SET_CONFIG = "SET_CONFIG";
 export const CLOSE = "SET_FEATURE";
 export const SHOW_NOTIFICATIONS = "SHOW_NOTIFICATIONS";
 export const SHOW_CONTENT = "SHOW_CONTENT";
+export const DISPLAY_MSG = "DISPLAY_MSG";
 
 export const showContent = (layer, feature) => {
     return {
         type: SHOW_CONTENT,
         layer,
-        feature,
+        feature
     };
 };
 
@@ -31,7 +32,7 @@ export const displayMsg = (level, title, message) => ({
     type: DISPLAY_MSG,
     level,
     title,
-    message,
+    message
 });
 
 /**
@@ -40,7 +41,7 @@ export const displayMsg = (level, title, message) => ({
  */
 export const setup = (cfg) => ({
     type: SETUP,
-    cfg,
+    cfg
 });
 
 /**
@@ -48,7 +49,7 @@ export const setup = (cfg) => ({
  * @returns {}
  */
 export const close = () => ({
-    type: CLOSE,
+    type: CLOSE
 });
 
 /**
@@ -59,7 +60,7 @@ export const close = () => ({
 export const setActiveTab = (index) => {
     return {
         type: SET_ACTIVE_TAB,
-        index,
+        index
     };
 };
 
@@ -70,7 +71,7 @@ export const setActiveTab = (index) => {
  */
 export const uploadDocument = (document) => ({
     type: UPLOAD_DOCUMENT,
-    document,
+    document
 });
 
 /**
@@ -80,7 +81,7 @@ export const uploadDocument = (document) => ({
  */
 export const downloadDocument = (id) => ({
     type: DOWNLOAD_DOCUMENT,
-    id,
+    id
 });
 
 /**
@@ -90,7 +91,7 @@ export const downloadDocument = (id) => ({
  */
 export const showDocument = (id) => ({
     type: SHOW_DOCUMENT,
-    id,
+    id
 });
 
 /**
@@ -100,7 +101,7 @@ export const showDocument = (id) => ({
  */
 export const getDocument = (id) => ({
     type: GET_DOCUMENT,
-    id,
+    id
 });
 
 /**
@@ -109,17 +110,7 @@ export const getDocument = (id) => ({
  * @returns {{id:string}}
  */
 export const getAllDocuments = () => ({
-    type: GET_ALL_DOCUMENTS,
-});
-
-/**
- * Set documents to state
- * @param {documents} Array
- * @returns {{documents: Array}}
- */
-export const setDocuments = (documents = []) => ({
-    type: SET_DOCUMENTS,
-    documents,
+    type: GET_ALL_DOCUMENTS
 });
 
 /**
@@ -129,7 +120,7 @@ export const setDocuments = (documents = []) => ({
  */
 export const deleteDocument = (id) => ({
     type: DELETE_DOCUMENT,
-    id,
+    id
 });
 
 /**
@@ -140,5 +131,5 @@ export const deleteDocument = (id) => ({
  */
 export const setFeature = (feature) => ({
     type: SET_FEATURE,
-    feature,
+    feature
 });

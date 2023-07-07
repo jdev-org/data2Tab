@@ -1,0 +1,11 @@
+.common-info {
+    text-align: center;
+    margin: 25% auto;
+    margin-top: 50% !important;
+}
+
+.common-info h3,
+.common-info h4 {
+    margin-left: 0px;
+    margin-top: 20px;
+}

@@ -283,11 +283,12 @@
           "cfg": {
             "icon": "tint",
             "title": "Cart'eaux",
-            "description": "Module Cart'eaux",
+            "description": "id",
             "layer": "tabou:commune_emprise",
+            "allowedRoles": ["ROLE_SV_CARTEAUX_EDIT", "ROLE_SV_CARTEAUX_READ", "ROLE_SV_CARTEAUX_EDIT", "MAPSTORE_ADMIN", "MAPSTORE_ADMIN"],
             "tabs": {
               "Général": [
-                "id", ["code_insee", "code insee"], "nom", ["code_posta", "code_postal"]
+                "id", ["code_insee", "code insee"], "nom", ["code_posta", "code postal"]
               ],
               "Système": [
                   ["commune_ag", "commune"], ["x_centrbrg", "x"], ["y_centrbrg", "y"]

@@ -7,7 +7,7 @@ import {
     getTabs,
     getFeature,
     getTabsList,
-    getTab,
+    getTab
 } from "@js/extension/stateManagement/selector/selector";
 import React from "react";
 import {
@@ -16,24 +16,19 @@ import {
     Form,
     FormGroup,
     Col,
-    FormControl,
+    FormControl
 } from "react-bootstrap";
-import Message from "@mapstore/plugins/locale/Message";
 import "./Tabs.css";
 const Tabs = ({
     tabs = [],
     tab = 1,
     fields,
-    featureId,
     properties,
-    onSelect = () => {},
+    onSelect = () => {}
 }) => {
-    if (!featureId) {
-        return <Message msgId="d2t.noFeature" />;
-    }
     const getValue = (field) =>
-        typeof field == "string" ? properties[field] : properties[field[0]];
-    const getLabel = (field) => (typeof field == "string" ? field : field[1]);
+        typeof field === "string" ? properties[field] : properties[field[0]];
+    const getLabel = (field) => (typeof field === "string" ? field : field[1]);
     return (
         <div className="d2t-tab-content">
             <BootstrapTabs
@@ -47,7 +42,9 @@ const Tabs = ({
                             <FormGroup>
                                 {fields[tabName].map((field) => (
                                     <div className="d2t-form-field">
-                                        <Col className="d2t-field-label" sm={3}>{getLabel(field)}</Col>
+                                        <Col className="d2t-field-label" sm={3}>
+                                            {getLabel(field)}
+                                        </Col>
                                         <Col className="d2t-field-value" sm={9}>
                                             <FormControl
                                                 type="text"
@@ -71,9 +68,9 @@ export default connect(
         tab: getTab(state),
         fields: getTabs(state),
         featureId: getFeature(state)?.properties?.id,
-        properties: getFeature(state)?.properties,
+        properties: getFeature(state)?.properties
     }),
     {
-        onSelect: setActiveTab,
+        onSelect: setActiveTab
     }
 )(Tabs);

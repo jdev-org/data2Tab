@@ -1,5 +1,10 @@
-import Rx from 'rxjs';
-import { UPDATE_MAP_LAYOUT, updateMapLayout } from '@mapstore/actions/maplayout';
+import Rx from "rxjs";
+import {
+    UPDATE_MAP_LAYOUT,
+    updateMapLayout,
+} from "@mapstore/actions/maplayout";
+import { updateUserPlugin } from "@mapstore/actions/context";
+
 import {
     toggleMapInfoState,
     changeMapInfoState,
@@ -54,6 +59,7 @@ export const initMap = (action$, store) =>
         return Rx.Observable.defer(() => {
             return Rx.Observable.from([
                 registerEventListener("click", CONTROL_NAME),
+                updateUserPlugin("d2t", { icon: "step-backward" }),
                 // disable click info right panel
             ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
         }).startWith({
@@ -74,7 +80,7 @@ export const closeExtension = (action$, { getState = () => {} }) =>
     });
 
 /**
- * Toggle identify off when cadastrap selection tool is active
+ * Toggle identify off when click tool is active
  * @param action$
  * @param store
  * @returns {Observable<unknown>}

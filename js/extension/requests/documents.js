@@ -1,3 +1,3 @@
 export const getDocuments = () => {
-    return fetch("").then(r => r.json())
-}
+    return fetch("").then(r => r.json());
+};

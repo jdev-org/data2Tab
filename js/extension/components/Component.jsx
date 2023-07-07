@@ -2,8 +2,9 @@ import React from "react";
 import Message from "@mapstore/components/I18N/Message";
 import ResponsivePanel from "@mapstore/components/misc/panels/ResponsivePanel";
 import { CONTROL_NAME } from "../constants";
-import Tabs from "../components/tabs/Tabs";
+import Tabs from "./tabs/Tabs";
 import { Row, Col } from "react-bootstrap";
+import Information from "./common/information/Information";
 const Extension = ({
     active = false,
     dockStyle = {},
@@ -12,6 +13,8 @@ const Extension = ({
     icon,
     title,
     description,
+    featureId,
+    authorized
 }) => {
     return (
         <ResponsivePanel
@@ -29,10 +32,26 @@ const Extension = ({
             style={dockStyle}
         >
             <Row>
-                <Col xs={12}>
-                    {description && <h3 className="d2t-description">{description}</h3>}
-                    <Tabs />
-                </Col>
+                <Information
+                    visible={!featureId && authorized}
+                    className="row text-center"
+                    glyph="eye-close"
+                    message={<Message msgId="d2t.noFeature" />}
+                />
+                <Information
+                    visible={!authorized}
+                    className="row text-center"
+                    glyph="lock"
+                    message={<Message msgId="d2t.unauthorized" />}
+                />
+                {featureId && authorized && (
+                    <Col xs={12}>
+                        {description && (
+                            <h3 className="d2t-description">{description}</h3>
+                        )}
+                        <Tabs />
+                    </Col>
+                )}
             </Row>
         </ResponsivePanel>
     );

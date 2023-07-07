@@ -1,5 +1,5 @@
 import { userGroupSecuritySelector } from '@mapstore/selectors/security';
-import { keys } from "lodash";
+import { keys, isEmpty } from "lodash";
 export const isActive = (state) => {
     return state?.controls?.d2t?.enabled;
 };
@@ -36,15 +36,18 @@ export const getDescription = (state) => {
 // to emulate authentication use test_env and sec-roles header as : "ROLE_MAPSTORE_ADMIN;ROLE_EL_APPLIS_CAD_CNIL1" (; separator)
 export const getAuthLevel = (state) => {
     const groups = userGroupSecuritySelector(state) ?? [];
-    const groupNames = groups.map(({ groupName }) => groupName);
-    return {
-        reader: groupNames.includes(
-            getPluginCfg(state).reader || "ROLE_SV_CARTEAUX_READ"
-        ),
-        writer: groupNames.includes(
-            getPluginCfg(state).writer || "ROLE_SV_CARTEAUX_WRITE"
-        ),
-    };
+    // const groupNames = groups.map(({ groupName }) => groupName);
+    const groupNames = ["MAPSTORE_ADMIN"];
+    let allowedRoles = getPluginCfg(state)?.allowedRoles;
+    if (!allowedRoles || !allowedRoles.length) {
+        allowedRoles = ["MAPSTORE_ADMIN"];
+    }
+    const fullyAuthorized = !isEmpty(
+        allowedRoles
+            .map((role) => groupNames.includes(role))
+            .filter((role) => role)
+    );
+    return fullyAuthorized;
 };
 
 export const boundingSidebarRectSelector = (state) =>
