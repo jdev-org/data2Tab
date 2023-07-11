@@ -13,7 +13,7 @@ const Extension = ({
     icon,
     title,
     description,
-    featureId,
+    isFeature,
     authorized
 }) => {
     return (
@@ -27,24 +27,24 @@ const Extension = ({
             size={dockWidth}
             bsStyle="primary"
             glyph={icon || "cog"}
-            title={title || <Message msgId="d2t.title" />}
+            title={title || "Data2Tab"}
             onClose={() => onClose()}
             style={dockStyle}
         >
             <Row>
                 <Information
-                    visible={!featureId && authorized}
+                    visible={!isFeature && authorized}
                     className="row text-center"
                     glyph="eye-close"
-                    message={<Message msgId="d2t.noFeature" />}
+                    message="Aucun résultat !"
                 />
                 <Information
                     visible={!authorized}
                     className="row text-center"
                     glyph="lock"
-                    message={<Message msgId="d2t.unauthorized" />}
+                    message="Ce contenu n'est pas accessible. Veuillez contacter votre administrateur."
                 />
-                {featureId && authorized && (
+                {isFeature && authorized && (
                     <Col xs={12}>
                         {description && (
                             <h3 className="d2t-description">{description}</h3>

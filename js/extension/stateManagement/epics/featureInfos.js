@@ -44,30 +44,22 @@ export const clickMap = (action$, store) => {
             )
                 .catch(() => {
                     // todo : use common alert component
-                    displayMsg(
-                        "error",
-                        "d2t.request.error",
-                        "d2t.request.fail"
-                    );
+                    displayMsg("error", "Incident", "La requête a échouée !");
                     return Rx.Observable.of({});
                 })
                 .switchMap((response) => {
                     if (isEmpty(response) || isEmpty(response.features)) {
                         return Rx.Observable.of(
                             setFeature(null),
-                            displayMsg(
-                                "info",
-                                "d2t.search.title",
-                                "d2t.search.notFound"
-                            )
+                            displayMsg("info", "Recherche", "Aucun résultat !")
                         );
                     }
                     return Rx.Observable.of(
                         setFeature(response.features[0]),
                         displayMsg(
                             "success",
-                            "d2t.search.title",
-                            "d2t.search.found"
+                            "Recherche",
+                            "Un résultat à été trouvé !"
                         )
                     );
                 });

@@ -1,5 +1,5 @@
 {
-    "name": "Data2Tab",
+    "name": "d2t",
     "version": "1.0.0",
     "description": "Template project to create MapStore extensions",
     "main": "index.js",
@@ -125,7 +125,7 @@
         "be:build": "mvn clean install",
         "ext:startapp": "webpack serve --progress --color --port 8081 --hot --inline --content-base . --config build/extension/module.app.webpack.config.js",
         "ext:start": "webpack serve --progress --color --port 8082 --hot --inline --config build/extension/webpack.config.js",
-        "ext:build": "rimraf ./dist && mkdirp ./dist && webpack --progress  --color --config build/extension/prod-webpack.config.js",
+        "ext:build": "rimraf ./dist && mkdirp ./dist && webpack --env mode=true --progress  --color --config build/extension/prod-webpack.config.js",
         "test": "karma start ./karma.conf.single-run.js",
         "continuoustest": "karma start ./karma.conf.continuous-test.js",
         "mvntest": "karma start ./karma.conf.single-run.js --reporters junit,dots,coverage",

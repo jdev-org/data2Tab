@@ -8,7 +8,6 @@ import { createPlugin } from "@mapstore/utils/PluginsUtils";
 import ExtensionComponent from "../components/Component";
 import { Glyphicon } from "react-bootstrap";
 
-import drop from "@js/extension/assets/drop.svg";
 import {
     getDescription,
     getPluginCfg,
@@ -39,7 +38,7 @@ const component = compose(
             icon: getPluginCfg(state).icon,
             title: getPluginCfg(state).title,
             description: getDescription(state),
-            featureId: getFeature(state)?.properties?.id,
+            isFeature: getFeature(state)?.properties && Object.keys(getFeature(state)?.properties).length,
             dockStyle: mapLayoutValuesSelector(
                 state,
                 { right: true, height: true },
@@ -72,8 +71,8 @@ export default createPlugin(name, {
         SidebarMenu: {
             name: CONTROL_NAME,
             position: 10,
-            icon: <Glyphicon glyph="tint" />,
-            tooltip: "d2t.tooltip",
+            icon: <Glyphicon glyph="list"/>,
+            tooltip: "extension.tooltip",
             doNotHide: true,
             alwaysVisible: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),

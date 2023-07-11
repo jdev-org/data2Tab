@@ -1,7 +1,7 @@
     {
     "locale": "fr-FR",
     "messages": {
-        "d2t": {
+        "extension": {
             "tooltip": "Data2Tab",
             "title": "Data2Tab",
             "noFeature": "Aucun résultat !",

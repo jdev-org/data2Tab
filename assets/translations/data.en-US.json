@@ -1,9 +1,21 @@
-    {
-    "locale": "en-US",
+{
+    "locale": "us-US",
     "messages": {
-        "d2t": {
+        "extension": {
             "tooltip": "Data2Tab",
-            "title": "Data2Tab"
+            "title": "Data2Tab",
+            "noFeature": "Aucun résultat !",
+            "search": {
+                "title":"Recherche",
+                "success": "Succés",
+                "found": "Un résultat a été trouvé !",
+                "notFound": "Aucun résultat trouvé !"
+            },
+            "request": {
+                "error": "Incident",
+                "fail": "La requête a échouée !"
+            },
+            "unauthorized": "Ce contenu n'est pas accessible. Veuillez contacter votre administrateur."
         }
     }
 }

@@ -41,7 +41,7 @@ const Tabs = ({
                         <Form>
                             <FormGroup>
                                 {fields[tabName].map((field) => (
-                                    <div className="d2t-form-field">
+                                    <div className="d2t-form-field row">
                                         <Col className="d2t-field-label" sm={3}>
                                             {getLabel(field)}
                                         </Col>
