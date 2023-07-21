@@ -12,18 +12,6 @@ import { setLayer } from "../../../stateManagement/actions/actions";
  * @returns component
  */
 
-/* <IdentifyDropDown
-    i18n={props.i18n}
-    messages={props.messages}
-    disabled={false}
-    value={find(lyrsOptions(), {name: selectedLayer})}
-    visible
-    data={lyrsOptions()}
-    valueField={'value'}
-    textField={'label'}
-    icon="glyphicon-1-layer"
-    onChange={(i) => changeLayer(i)}
-/> */
 const LayerList = ({
     icon,
     ...props
@@ -43,7 +31,7 @@ const LayerList = ({
                     <DropdownList
                         disabled={false}
                         placeholder=""
-                        defaultValue={props.layer}
+                        value={props.layer}
                         {...props}
                         onChange={(x) => {
                             props.onChange(x)
