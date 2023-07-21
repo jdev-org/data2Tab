@@ -283,15 +283,26 @@
           "cfg": {
             "icon": "tint",
             "title": "Cart'eaux",
-            "description": "id",
-            "layer": "tabou:commune_emprise",
-            "allowedRoles": ["ROLE_SV_CARTEAUX_EDIT", "ROLE_SV_CARTEAUX_READ", "ROLE_SV_CARTEAUX_EDIT", "MAPSTORE_ADMIN", "MAPSTORE_ADMIN"],
+            "allowedRoles": [
+              "ROLE_SV_CARTEAUX_EDIT",
+              "ROLE_SV_CARTEAUX_READ",
+              "ROLE_SV_CARTEAUX_EDIT",
+              "MAPSTORE_ADMIN",
+              "MAPSTORE_ADMIN"
+            ],
+            "layers": ["tabou:commune_emprise", "tabou:tabou_v_oa_operation"],
             "tabs": {
               "Général": [
-                "id", ["code_insee", "code insee"], "nom", ["code_posta", "code postal"]
+                ["test", "un test"],
+                "id",
+                ["code_insee", "code insee"],
+                "nom",
+                ["code_posta", "code postal"]
               ],
               "Système": [
-                  ["commune_ag", "commune"], ["x_centrbrg", "x"], ["y_centrbrg", "y"]
+                ["commune_ag", "commune"],
+                ["x_centrbrg", "x"],
+                ["y_centrbrg", "y"]
               ]
             }
           }

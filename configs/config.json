@@ -2,14 +2,14 @@
   "version": 2,
   "map": {
     "center": {
-      "x": -1.5311420033805745,
-      "y": 48.12298614414182,
+      "x": -1.7382431030273444,
+      "y": 48.115110455093955,
       "crs": "EPSG:4326"
     },
     "maxExtent": [-20037508.34, -20037508.34, 20037508.34, 20037508.34],
     "projection": "EPSG:900913",
     "units": "m",
-    "zoom": 10,
+    "zoom": 11,
     "mapOptions": {},
     "layers": [
       {
@@ -58,21 +58,21 @@
         "params": {}
       },
       {
-        "id": "bthd:elagage__fd0e25c0-1b3a-11ee-8516-0199dad95f91",
+        "id": "tabou:tabou_v_oa_operation__0a87f7d0-256d-11ee-92cc-5114fca8b913",
         "format": "image/png",
         "search": { "url": "https://gis.jdev.fr/geoserver/wfs", "type": "wfs" },
-        "name": "bthd:elagage",
-        "description": "elagage",
-        "title": "elagage",
+        "name": "tabou:tabou_v_oa_operation",
+        "description": "tabou_v_oa_operation",
+        "title": "tabou_v_oa_operation",
         "type": "wms",
         "url": "https://gis.jdev.fr/geoserver/wms",
         "bbox": {
           "crs": "EPSG:4326",
           "bounds": {
-            "minx": "-2.996185442195058",
-            "miny": "48.27014151911434",
-            "maxx": "-1.656369560659839",
-            "maxy": "48.387458523089514"
+            "minx": "-1.9603629394338802",
+            "miny": "47.95933025916504",
+            "maxx": "-1.4619064359935117",
+            "maxy": "48.31798369375453"
           }
         },
         "visibility": true,
@@ -121,8 +121,11 @@
     },
     "selectedService": "jdev_wms"
   },
-  "widgetsConfig": {},
-  "mapInfoConfiguration": { "trigger": "click", "infoFormat": "application/json" },
+  "widgetsConfig": { "layouts": { "md": [] } },
+  "mapInfoConfiguration": {
+    "trigger": "click",
+    "infoFormat": "application/json"
+  },
   "dimensionData": {},
   "timelineData": { "snapRadioButtonEnabled": false }
 }
