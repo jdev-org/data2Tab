@@ -14,6 +14,12 @@ export const SHOW_CONTENT = "SHOW_CONTENT";
 export const DISPLAY_MSG = "DISPLAY_MSG";
 export const SET_RESPONSE = "SET_RESPONSE";
 export const SET_LAYER = "SET_LAYER";
+export const DISPLAY_D2T_MARKER = "DISPLAY_D2T_MARKER";
+
+export const displayD2tMarker = (point) => ({
+    type: DISPLAY_D2T_MARKER,
+    point,
+});
 
 export const showContent = (layer, feature) => {
     return {
