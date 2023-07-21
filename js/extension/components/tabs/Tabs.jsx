@@ -54,7 +54,6 @@ const Tabs = ({
                 onSelect={(n) => onSelect(n)}
             >
                 {tabs.filter(t => {
-                    console.log(t);
                     return getFields(fields[t]).length > 0
                 }).map((tabName, n) => (
                     <Tab key={n} eventKey={n} title={tabName}>

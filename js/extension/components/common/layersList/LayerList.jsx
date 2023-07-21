@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { Row } from 'react-bootstrap';
@@ -16,7 +16,6 @@ const LayerList = ({
     icon,
     ...props
 }) => {
-    console.log(props.layer);
     let visible = props.visible ? {
         margin: '10px'
     } : {
@@ -34,7 +33,7 @@ const LayerList = ({
                         value={props.layer}
                         {...props}
                         onChange={(x) => {
-                            props.onChange(x)
+                            props.onChange(x);
                         }}
                     />
                 </div>

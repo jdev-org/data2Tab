@@ -14,6 +14,7 @@ import { layerRequest } from "../utils";
 import {
     getAuthLevel,
     getLayers,
+    getLayer,
     getPluginCfg,
     isActive,
 } from "../selector/selector";
@@ -184,17 +185,21 @@ export const clickMap = (action$, store) => {
                                 featuresByConfigLayer.filter(
                                     (x) => x[1].length
                                 );
+                            let features = [];
+                            let defaultListLayerVal = { label: "" };
+                            if (!isEmpty(featuresByConfigLayer)) {
+                                features = featuresByConfigLayer;
+                                let listLayersName = featuresByConfigLayer.map(
+                                    (x) => x[0]
+                                );
+                                defaultListLayerVal.label =
+                                    listLayersName.filter(
+                                        (l) => l == getLayer(state)
+                                    )[0] || listLayersName[0];
+                            }
                             return Rx.Observable.of(
-                                setResponse(
-                                    isEmpty(featuresByConfigLayer)
-                                        ? []
-                                        : featuresByConfigLayer
-                                ),
-                                setLayer(
-                                    isEmpty(featuresByConfigLayer)
-                                        ? ""
-                                        : { label: featuresByConfigLayer[0][0] }
-                                )
+                                setResponse(features),
+                                setLayer(defaultListLayerVal)
                             );
                         }
                     );

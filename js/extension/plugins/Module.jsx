@@ -12,7 +12,6 @@ import {
     getDescription,
     getPluginCfg,
     isActive,
-    getFeature,
     getAuthLevel,
     getResponse,
 } from "../stateManagement/selector/selector";

@@ -19,7 +19,6 @@ const Extension = ({
     response
 }) => {
     const noResult = response && !response.length;
-    console.log(response);
     return (
         <ResponsivePanel
             containerStyle={dockStyle}
