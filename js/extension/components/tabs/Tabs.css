@@ -21,3 +21,30 @@
 .d2t-form-field {
     padding-top: 10px;
 }
+.d2t-tab-content {
+    padding: 40px 20px;
+}
+
+.d2t-tab-content .key {
+    background-color: rgba(202, 201, 201, 0.71);
+    /*border: 1px solid white;*/
+    text-transform: uppercase;
+}
+
+.d2t-tab-content .key.first,
+.d2t-tab-content .key.last {
+    border-top: 1px solid rgba(202, 201, 201, 0.71) !important;
+}
+
+
+.d2t-tab-content .value {
+    border: 1px solid rgba(202, 201, 201, 0.4);
+}
+
+#d2t-tabs .tab-content {
+    margin-top: 20px;
+}
+
+.d2t-tab-content .key:not(:last-child) {
+    border: 1px solid white;
+}

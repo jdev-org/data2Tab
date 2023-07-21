@@ -5,6 +5,8 @@ import { CONTROL_NAME } from "../constants";
 import Tabs from "./tabs/Tabs";
 import { Row, Col } from "react-bootstrap";
 import Information from "./common/information/Information";
+import { isEmpty } from "lodash";
+import LayerList from "./common/layersList/LayerList";
 const Extension = ({
     active = false,
     dockStyle = {},
@@ -13,9 +15,11 @@ const Extension = ({
     icon,
     title,
     description,
-    isFeature,
-    authorized
+    authorized,
+    response
 }) => {
+    const noResult = response && !response.length;
+    console.log(response);
     return (
         <ResponsivePanel
             containerStyle={dockStyle}
@@ -33,7 +37,7 @@ const Extension = ({
         >
             <Row>
                 <Information
-                    visible={!isFeature && authorized}
+                    visible={noResult && authorized}
                     className="row text-center"
                     glyph="eye-close"
                     message="Aucun résultat !"
@@ -44,11 +48,27 @@ const Extension = ({
                     glyph="lock"
                     message="Ce contenu n'est pas accessible. Veuillez contacter votre administrateur."
                 />
-                {isFeature && authorized && (
+                <Information
+                    visible={response == null && authorized}
+                    className="row text-center"
+                    glyph="map-marker"
+                    message="Cliquer en premier sur un élément de la carte !"
+                />
+                {response && response.length && authorized && (
                     <Col xs={12}>
                         {description && (
                             <h3 className="d2t-description">{description}</h3>
                         )}
+                        {
+                            <LayerList
+                                messages="Choisir une couche..."
+                                visible={response.length>1}
+                                data={response.map((r, i) => ({ label: r[0] }))}
+                                valueField={'label'}
+                                textField={'label'}
+                                icon="glyphicon-1-layer"
+                            />
+                        }
                         <Tabs />
                     </Col>
                 )}

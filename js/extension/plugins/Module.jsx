@@ -14,6 +14,7 @@ import {
     isActive,
     getFeature,
     getAuthLevel,
+    getResponse,
 } from "../stateManagement/selector/selector";
 
 import { CONTROL_NAME, PANEL_SIZE } from "../constants";
@@ -35,10 +36,10 @@ const component = compose(
         (state) => ({
             // selectors
             active: isActive(state),
-            icon: getPluginCfg(state).icon,
+            icon: getPluginCfg(state)?.icon,
             title: getPluginCfg(state).title,
             description: getDescription(state),
-            isFeature: getFeature(state)?.properties && Object.keys(getFeature(state)?.properties).length,
+            response: getResponse(state),
             dockStyle: mapLayoutValuesSelector(
                 state,
                 { right: true, height: true },
