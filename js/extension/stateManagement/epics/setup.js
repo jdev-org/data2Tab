@@ -17,13 +17,14 @@ import {
 } from "@mapstore/actions/mapInfo";
 import { isActive } from "../selector/selector";
 import { PANEL_SIZE, CONTROL_NAME, D2T_MARKER_LAYER_ID } from "../../constants";
-import { CLOSE, SETUP } from "../actions/actions";
+import { SETUP, close } from "../actions/actions";
 import { get } from "lodash";
 
 import {
     registerEventListener,
     unRegisterEventListener,
 } from "@mapstore/actions/map";
+import { TOGGLE_CONTROL } from "@mapstore/actions/controls";
 import { defaultIconStyle } from "@mapstore/utils/SearchUtils";
 import iconUrl from "@mapstore/components/map/openlayers/img/marker-icon.png";
 
@@ -97,8 +98,11 @@ export const initMap = (action$, store) =>
 
 export const closeExtension = (action$, store) =>
     action$
-        .ofType(CLOSE)
-        .filter(() => isActive(store.getState()))
+        .ofType(TOGGLE_CONTROL)
+        .filter(
+            ({ control }) =>
+                control === CONTROL_NAME && !isActive(store.getState())
+        )
         .switchMap(() => {
             return Rx.Observable.from([
                 updateDockPanelsList(CONTROL_NAME, "remove", "right"),
@@ -107,6 +111,7 @@ export const closeExtension = (action$, store) =>
                     id: D2T_MARKER_LAYER_ID,
                     owner: CONTROL_NAME,
                 }),
+                close()
                 // enable click info right panel if needed
             ]);
         });

@@ -38,13 +38,12 @@ export default function reducers(state = initialState, action) {
         case SETUP:
             return set("pluginCfg", action.cfg, state);
         case CLOSE:
-            console.log("CLOSE");
             return compose(
                 set("feature", null),
                 set("response", null),
                 set("tab", 0),
                 set("layer", "")
-            );
+            )(state);
         default:
             return state;
     }
