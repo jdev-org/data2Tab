@@ -293,9 +293,9 @@
             "layers": ["tabou:commune_emprise", "tabou:tabou_v_oa_operation"],
             "tabs": {
               "Général": [
-                ["test", "un test"],
-                "id",
-                ["code_insee", "code insee"],
+                ["test", "un test","string"],
+                ["id", "identifiant unique", "string"],
+                ["code_insee", "code insee", "number", "tabou:commune_emprise"],
                 "nom",
                 ["code_posta", "code postal"]
               ],
