@@ -282,6 +282,9 @@
           "name": "d2t",
           "cfg": {
             "icon": "tint",
+            "click": {
+              "showMarker": true
+            },
             "title": "Cart'eaux",
             "allowedRoles": [
               "ROLE_SV_CARTEAUX_EDIT",
