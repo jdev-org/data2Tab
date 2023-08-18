@@ -52,8 +52,7 @@ export const getDescription = (state) => {
 // to emulate authentication use test_env and sec-roles header as : "ROLE_MAPSTORE_ADMIN;ROLE_EL_APPLIS_CAD_CNIL1" (; separator)
 export const getAuthLevel = (state) => {
     const groups = userGroupSecuritySelector(state) ?? [];
-    // const groupNames = groups.map(({ groupName }) => groupName);
-    const groupNames = ["MAPSTORE_ADMIN"];
+    const groupNames = groups.map(({ groupName }) => groupName);
     let allowedRoles = getPluginCfg(state)?.allowedRoles;
     if (!allowedRoles || !allowedRoles.length) {
         allowedRoles = ["MAPSTORE_ADMIN"];
@@ -63,8 +62,7 @@ export const getAuthLevel = (state) => {
             .map((role) => groupNames.includes(role))
             .filter((role) => role)
     );
-    // return fullyAuthorized;
-    return true;
+    return fullyAuthorized;
 };
 
 export const boundingSidebarRectSelector = (state) =>
