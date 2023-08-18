@@ -39,8 +39,8 @@ const Tabs = ({
         return fields.filter(field => {
             if (typeof field == "string") {
                 return properties.hasOwnProperty(field)   
-            } else if(field.length > 2) {
-                return field[3] == layer;
+            } else if(field.length > 3) {
+                return field[3].includes(layer);
             } else {
                 return properties.hasOwnProperty(field[0]);
             }
