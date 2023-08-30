@@ -1,6 +1,7 @@
 import { userGroupSecuritySelector } from '@mapstore/selectors/security';
 import { keys, isEmpty } from "lodash";
 import { CONTROL_NAME } from "@js/extension/constants";
+
 export const isActive = (state) => {
     return (
         (state.controls &&
@@ -10,6 +11,7 @@ export const isActive = (state) => {
         false
     );
 };
+export const getPlugins = (state) => state?.d2t?.pluginCfg?.items;
 export const getTabs = (state) =>
     state?.d2t?.pluginCfg && state?.d2t?.pluginCfg?.tabs;
 export const getTabsList = (state) => getTabs(state) && keys(getTabs(state));
@@ -22,6 +24,10 @@ export const getReponseLayer = (state) =>
 export const getFeatures = (state) =>
     getLayer(state) &&
     (getReponseLayer(state) ? getReponseLayer(state)[1] : null);
+
+export const getFeature = (state) => {
+    return getFeatures(state) ? getFeatures(state)[0] : null;
+}
 
 export const getDocuments = (state) => state?.d2t.documents?.documents;
 export const getIdsDocuments = (state) => state?.d2t?.documents?.ids;
@@ -41,9 +47,9 @@ export const getPluginCfg = (state) => state?.d2t?.pluginCfg;
 export const getLayers = (state) => state?.d2t?.pluginCfg.layers;
 
 export const getDescription = (state) => {
-    let description = state.d2t.pluginCfg.description;
+    let description = state?.d2t?.pluginCfg?.description;
     let feature = state?.d2t?.feature;
-    if (feature && feature.properties[description]) {
+    if (feature && description && feature?.properties[description]) {
         return feature.properties[description];
     }
     return description;
@@ -62,7 +68,7 @@ export const getAuthLevel = (state) => {
             .map((role) => groupNames.includes(role))
             .filter((role) => role)
     );
-    return fullyAuthorized;
+    return true;
 };
 
 export const boundingSidebarRectSelector = (state) =>

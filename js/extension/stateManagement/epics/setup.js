@@ -1,13 +1,11 @@
 import Rx from "rxjs";
 import {
     UPDATE_MAP_LAYOUT,
-    updateDockPanelsList,
     updateMapLayout,
 } from "@mapstore/actions/maplayout";
 import { updateUserPlugin } from "@mapstore/actions/context";
 import {
     updateAdditionalLayer,
-    removeAdditionalLayer,
 } from "@mapstore/actions/additionallayers";
 
 import {
@@ -17,12 +15,11 @@ import {
 } from "@mapstore/actions/mapInfo";
 import { isActive } from "../selector/selector";
 import { PANEL_SIZE, CONTROL_NAME, D2T_MARKER_LAYER_ID } from "../../constants";
-import { SETUP, close } from "../actions/actions";
+import { SETUP } from "../actions/actions";
 import { get } from "lodash";
 
 import {
     registerEventListener,
-    unRegisterEventListener,
 } from "@mapstore/actions/map";
 import { TOGGLE_CONTROL } from "@mapstore/actions/controls";
 import { defaultIconStyle } from "@mapstore/utils/SearchUtils";
@@ -61,7 +58,9 @@ export const setTbarPosition = (action$, store) =>
  * @returns
  */
 export const initMap = (action$, store) =>
-    action$.ofType(SETUP).switchMap(() => {
+    action$.ofType(SETUP)
+        .filter((action) => isActive(store.getState()))
+        .switchMap((action) => {
         const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
         let defaultStyle = {
             ...defaultIconStyle,
@@ -69,10 +68,9 @@ export const initMap = (action$, store) =>
         };
         return Rx.Observable.defer(() => {
             return Rx.Observable.from([
-                purgeMapInfoResults(),
-                hideMapinfoMarker(),
-                registerEventListener("click", CONTROL_NAME),
                 updateUserPlugin("Identify", { active: false }),
+
+                registerEventListener("click", CONTROL_NAME),
                 updateAdditionalLayer(
                     D2T_MARKER_LAYER_ID,
                     CONTROL_NAME,
@@ -87,7 +85,7 @@ export const initMap = (action$, store) =>
                     }
                 ),
                 // disable click info right panel
-            ]).concat([...(mapInfoEnabled ? [toggleMapInfoState()] : [])]);
+            ]).concat([...(mapInfoEnabled ? [toggleMapInfoState(), purgeMapInfoResults(), hideMapinfoMarker()] : [])]);
         }).startWith({
             type: "MAP_LAYOUT:UPDATE_DOCK_PANELS",
             name: CONTROL_NAME,
@@ -95,24 +93,4 @@ export const initMap = (action$, store) =>
             location: "right",
         });
     });
-
-export const closeExtension = (action$, store) =>
-    action$
-        .ofType(TOGGLE_CONTROL)
-        .filter(
-            ({ control }) =>
-                control === CONTROL_NAME && !isActive(store.getState())
-        )
-        .switchMap(() => {
-            return Rx.Observable.from([
-                updateDockPanelsList(CONTROL_NAME, "remove", "right"),
-                unRegisterEventListener("click", CONTROL_NAME),
-                removeAdditionalLayer({
-                    id: D2T_MARKER_LAYER_ID,
-                    owner: CONTROL_NAME,
-                }),
-                close()
-                // enable click info right panel if needed
-            ]);
-        });
 

@@ -1,12 +1,11 @@
 import React from "react";
-import Message from "@mapstore/components/I18N/Message";
 import ResponsivePanel from "@mapstore/components/misc/panels/ResponsivePanel";
 import { CONTROL_NAME } from "../constants";
 import Tabs from "./tabs/Tabs";
 import { Row, Col } from "react-bootstrap";
 import Information from "./common/information/Information";
-import { isEmpty } from "lodash";
 import LayerList from "./common/layersList/LayerList";
+import ToolsBar from "@js/extension/components/common/toolsBar/ToolsBar";
 const Extension = ({
     active = false,
     dockStyle = {},
@@ -16,7 +15,7 @@ const Extension = ({
     title,
     description,
     authorized,
-    response
+    response,
 }) => {
     const noResult = response && !response.length;
     return (
@@ -35,6 +34,13 @@ const Extension = ({
             style={dockStyle}
         >
             <Row>
+                <Col
+                    xs={12}
+                    className="text-center"
+                    style={{ paddingTop: "20px" }}
+                >
+                    <ToolsBar />
+                </Col>
                 <Information
                     visible={noResult && authorized}
                     className="row text-center"
@@ -54,22 +60,28 @@ const Extension = ({
                     message="Cliquer en premier sur un élément de la carte !"
                 />
                 {response && response.length && authorized && (
-                    <Col xs={12}>
-                        {description && (
-                            <h3 className="d2t-description">{description}</h3>
-                        )}
-                        {
-                            <LayerList
-                                messages="Choisir une couche..."
-                                visible={response.length>1}
-                                data={response.map((r, i) => ({ label: r[0] }))}
-                                valueField={'label'}
-                                textField={'label'}
-                                icon="glyphicon-1-layer"
-                            />
-                        }
-                        <Tabs />
-                    </Col>
+                    <>
+                        <Col xs={12}>
+                            {description && (
+                                <h3 className="d2t-description">
+                                    {description}
+                                </h3>
+                            )}
+                            {
+                                <LayerList
+                                    messages="Choisir une couche..."
+                                    visible={response.length > 1}
+                                    data={response.map((r, i) => ({
+                                        label: r[0],
+                                    }))}
+                                    valueField={"label"}
+                                    textField={"label"}
+                                    icon="glyphicon-1-layer"
+                                />
+                            }
+                            <Tabs />
+                        </Col>
+                    </>
                 )}
             </Row>
         </ResponsivePanel>

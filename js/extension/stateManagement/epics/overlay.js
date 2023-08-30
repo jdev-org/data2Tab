@@ -12,7 +12,7 @@ export const showD2tClickMarker = (action$, store) =>
         .filter(
             () =>
                 isActive(store.getState()) &&
-                getPluginCfg(store.getState()).click.showMarker
+                getPluginCfg(store.getState())?.click?.showMarker
         )
         .switchMap(({ point }) => {
             // insert features into layer

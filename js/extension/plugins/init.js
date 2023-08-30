@@ -4,7 +4,9 @@ export default () => (Component) => ({ setup = () => { }, openOnLoad, open, ...p
     // configuration load and initial setup
     useEffect(() => {
         if (props.active) {
-            setup(props?.pluginCfg);
+            setup({...props?.pluginCfg, items: props?.items});
+        } else {
+            props.tearDownD2t();
         }
     }, [props.active]);
     return <Component {...props} />;

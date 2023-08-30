@@ -3,9 +3,9 @@ import {
     SET_ACTIVE_TAB,
     SET_FEATURE,
     SETUP,
-    CLOSE,
     SET_RESPONSE,
     SET_LAYER,
+    CLOSE_D2T,
 } from "../actions/actions";
 
 const initialState = {
@@ -28,7 +28,9 @@ const initialState = {
 export default function reducers(state = initialState, action) {
     switch (action.type) {
         case SET_FEATURE:
-            return set("feature", action?.feature, state);
+            return compose(
+                set("feature", action?.feature),
+            )(state);
         case SET_LAYER:
             return set("layer", action?.layer.label, state);
         case SET_RESPONSE:
@@ -37,7 +39,7 @@ export default function reducers(state = initialState, action) {
             return set("tab", action.index, state);
         case SETUP:
             return set("pluginCfg", action.cfg, state);
-        case CLOSE:
+        case CLOSE_D2T:
             return compose(
                 set("feature", null),
                 set("response", null),

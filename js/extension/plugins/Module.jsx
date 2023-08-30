@@ -7,6 +7,7 @@ import { mapLayoutValuesSelector } from "@mapstore/selectors/maplayout";
 import { createPlugin } from "@mapstore/utils/PluginsUtils";
 import ExtensionComponent from "../components/Component";
 import { Glyphicon } from "react-bootstrap";
+import SidebarElement from "@mapstore/components/sidebarmenu/SidebarElement";
 
 import {
     getDescription,
@@ -18,7 +19,7 @@ import {
 
 import { CONTROL_NAME, PANEL_SIZE } from "../constants";
 
-import { setup, close } from "../stateManagement/actions/actions";
+import { setup, tearDownD2t } from "../stateManagement/actions/actions";
 import * as actions from "../stateManagement/actions/actions";
 import init from "./init";
 import reducers from "../stateManagement/reducers/reducers";
@@ -57,7 +58,7 @@ const component = compose(
         // on setup / close
         connect(() => ({}), {
             setup,
-            close,
+            
         }),
         init()
     )
@@ -71,12 +72,21 @@ export default createPlugin(name, {
         SidebarMenu: {
             name: CONTROL_NAME,
             position: 10,
-            icon: <Glyphicon glyph="list"/>,
+            icon: <Glyphicon glyph="list" />,
             tooltip: "extension.tooltip",
             doNotHide: true,
             alwaysVisible: true,
             action: toggleControl.bind(null, CONTROL_NAME, null),
             priority: 1,
-        },
+            tool: connect(() => ({}), {
+                click: toggleControl.bind(null, CONTROL_NAME, null),
+            })((props) => {
+                return (
+                    <SidebarElement bsStyle="tray" onClick={props?.click}>
+                        <Glyphicon glyph={props?.pluginCfg?.icon || "sheet"} />
+                    </SidebarElement>
+                );
+            }),
+        }
     },
 });

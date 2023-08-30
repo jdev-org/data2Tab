@@ -6,9 +6,9 @@ export const DELETE_DOCUMENT = "DELETE_DOCUMENT";
 export const GET_DOCUMENT = "GET_DOCUMENT";
 export const GET_ALL_DOCUMENTS = "GET_ALL_DOCUMENTS";
 export const SET_FEATURE = "SET_FEATURE";
-export const SETUP = "SETUP";
+export const SETUP = "SETUP_D2T";
 export const SET_CONFIG = "SET_CONFIG";
-export const CLOSE = "CLOSE";
+export const TEAR_DOWN_D2T = "TEAR_DOWN_D2T";
 export const SHOW_NOTIFICATIONS = "SHOW_NOTIFICATIONS";
 export const SHOW_CONTENT = "SHOW_CONTENT";
 export const DISPLAY_MSG = "DISPLAY_MSG";
@@ -56,8 +56,8 @@ export const setup = (cfg) => ({
  * close
  * @returns {}
  */
-export const close = () => ({
-    type: CLOSE,
+export const tearDownD2t = () => ({
+    type: TEAR_DOWN_D2T,
 });
 
 /**
