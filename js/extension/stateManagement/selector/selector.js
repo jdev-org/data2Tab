@@ -68,7 +68,7 @@ export const getAuthLevel = (state) => {
             .map((role) => groupNames.includes(role))
             .filter((role) => role)
     );
-    return true;
+    return fullyAuthorized;
 };
 
 export const boundingSidebarRectSelector = (state) =>
