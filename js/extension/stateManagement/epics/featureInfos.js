@@ -43,16 +43,22 @@ export const onDrawStatusChange = (action$, store) => {
 export const clickMap = (action$, store) => {
     return action$
         .ofType(CLICK_ON_MAP)
-        .filter(
-            () =>
-                isActive(store.getState()) &&
-                getAuthLevel(store.getState() & getLayers(store.getState()))
-        )
-        .filter(
-            () =>
-                !drawerEnabledControlSelector(store.getState()) &&
-                !measureSelector(store.getState())
-        )
+        .filter(() => {
+            const activCond = isActive(store.getState());
+            const accessCond = getAuthLevel(store.getState());
+            const layersExistsCond = getLayers(store.getState());
+            const drawNotEnableCond = !drawerEnabledControlSelector(
+                store.getState()
+            );
+            const measureNotEnableCond = !measureSelector(store.getState());
+            const isOk =
+                activCond &&
+                accessCond &&
+                layersExistsCond &&
+                drawNotEnableCond &&
+                measureNotEnableCond;
+            return isOk;
+        })
         .switchMap((action) => {
             let state = store.getState();
 
