@@ -286,6 +286,7 @@
               "showMarker": true
             },
             "title": "Cart'eaux",
+            "description": "nom",
             "allowedRoles": [
               "ROLE_SV_CARTEAUX_EDIT",
               "ROLE_SV_CARTEAUX_READ",
