@@ -79,10 +79,10 @@ export default createPlugin(name, {
             action: toggleControl.bind(null, CONTROL_NAME, null),
             priority: 1,
             tool: connect(() => ({}), {
-                click: toggleControl.bind(null, CONTROL_NAME, null),
+                click: toggleControl.bind(null, CONTROL_NAME, null)
             })((props) => {
                 return (
-                    <SidebarElement bsStyle="tray" onClick={props?.click}>
+                    <SidebarElement tooltipId={props?.pluginCfg?.tooltip || "extension.tooltip"} bsStyle="tray" onClick={props?.click}>
                         <Glyphicon glyph={props?.pluginCfg?.icon || "sheet"} />
                     </SidebarElement>
                 );
