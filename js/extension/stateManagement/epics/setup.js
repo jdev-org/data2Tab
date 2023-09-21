@@ -4,9 +4,7 @@ import {
     updateMapLayout,
 } from "@mapstore/actions/maplayout";
 import { updateUserPlugin } from "@mapstore/actions/context";
-import {
-    updateAdditionalLayer,
-} from "@mapstore/actions/additionallayers";
+import { updateAdditionalLayer } from "@mapstore/actions/additionallayers";
 
 import {
     toggleMapInfoState,
@@ -18,10 +16,7 @@ import { PANEL_SIZE, CONTROL_NAME, D2T_MARKER_LAYER_ID } from "../../constants";
 import { SETUP } from "../actions/actions";
 import { get } from "lodash";
 
-import {
-    registerEventListener,
-} from "@mapstore/actions/map";
-import { TOGGLE_CONTROL } from "@mapstore/actions/controls";
+import { registerEventListener } from "@mapstore/actions/map";
 import { defaultIconStyle } from "@mapstore/utils/SearchUtils";
 import iconUrl from "@mapstore/components/map/openlayers/img/marker-icon.png";
 
@@ -58,39 +53,47 @@ export const setTbarPosition = (action$, store) =>
  * @returns
  */
 export const initMap = (action$, store) =>
-    action$.ofType(SETUP)
+    action$
+        .ofType(SETUP)
         .filter((action) => isActive(store.getState()))
         .switchMap((action) => {
-        const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
-        let defaultStyle = {
-            ...defaultIconStyle,
-            iconUrl: iconUrl,
-        };
-        return Rx.Observable.defer(() => {
-            return Rx.Observable.from([
-                updateUserPlugin("Identify", { active: false }),
+            const mapInfoEnabled = get(store.getState(), "mapInfo.enabled");
+            let defaultStyle = {
+                ...defaultIconStyle,
+                iconUrl: iconUrl,
+            };
+            return Rx.Observable.defer(() => {
+                return Rx.Observable.from([
+                    updateUserPlugin("Identify", { active: false }),
 
-                registerEventListener("click", CONTROL_NAME),
-                updateAdditionalLayer(
-                    D2T_MARKER_LAYER_ID,
-                    CONTROL_NAME,
-                    "overlay",
-                    {
-                        id: D2T_MARKER_LAYER_ID,
-                        features: [],
-                        type: "vector",
-                        name: "d2t_marker_click_map",
-                        visibility: true,
-                        style: defaultStyle,
-                    }
-                ),
-                // disable click info right panel
-            ]).concat([...(mapInfoEnabled ? [toggleMapInfoState(), purgeMapInfoResults(), hideMapinfoMarker()] : [])]);
-        }).startWith({
-            type: "MAP_LAYOUT:UPDATE_DOCK_PANELS",
-            name: CONTROL_NAME,
-            action: "add",
-            location: "right",
+                    registerEventListener("click", CONTROL_NAME),
+                    updateAdditionalLayer(
+                        D2T_MARKER_LAYER_ID,
+                        CONTROL_NAME,
+                        "overlay",
+                        {
+                            id: D2T_MARKER_LAYER_ID,
+                            features: [],
+                            type: "vector",
+                            name: "d2t_marker_click_map",
+                            visibility: true,
+                            style: defaultStyle,
+                        }
+                    ),
+                    // disable click info right panel
+                ]).concat([
+                    ...(mapInfoEnabled
+                        ? [
+                              toggleMapInfoState(),
+                              purgeMapInfoResults(),
+                              hideMapinfoMarker(),
+                          ]
+                        : []),
+                ]);
+            }).startWith({
+                type: "MAP_LAYOUT:UPDATE_DOCK_PANELS",
+                name: CONTROL_NAME,
+                action: "add",
+                location: "right",
+            });
         });
-    });
-

@@ -26,20 +26,24 @@ import {
     SET_LAYER,
     setLayer,
     setResponse,
+    SETUP,
+    setup
 } from "../actions/actions";
 import { getFeatureInfo } from "@mapstore/api/identify";
-import { CHANGE_DRAWING_STATUS } from "@mapstore/actions/draw";
 import {
     drawerEnabledControlSelector,
     measureSelector,
 } from "@mapstore/selectors/controls";
+import { toggleControl } from "@mapstore/actions/controls";
 
-export const onDrawStatusChange = (action$, store) => {
-    return action$.ofType(CHANGE_DRAWING_STATUS).switchMap((action) => {
-        return Rx.Observable.empty();
+
+export const forceDisableDrawer = (action$, store) => action$.ofType(SETUP)
+    .filter((action) => isActive(store.getState()) && drawerEnabledControlSelector(
+        store.getState()
+    ))
+    .switchMap( () => {
+        return Rx.Observable.of(setControlProperty("drawer", "enabled", false), toggleTool("featureCloseConfirm", false));
     });
-};
-
 export const clickMap = (action$, store) => {
     return action$
         .ofType(CLICK_ON_MAP)
@@ -47,15 +51,13 @@ export const clickMap = (action$, store) => {
             const activCond = isActive(store.getState());
             const accessCond = getAuthLevel(store.getState());
             const layersExistsCond = getLayers(store.getState());
-            const drawNotEnableCond = !drawerEnabledControlSelector(
-                store.getState()
-            );
+            const annotationNotDrawing = !store.getState()?.annotations?.drawing;
             const measureNotEnableCond = !measureSelector(store.getState());
             const isOk =
                 activCond &&
                 accessCond &&
                 layersExistsCond &&
-                drawNotEnableCond &&
+                annotationNotDrawing &&
                 measureNotEnableCond;
             return isOk;
         })
@@ -117,7 +119,7 @@ export const clickMap = (action$, store) => {
                         }
                     );
                 });
-        });
+        }).startWith(toggleControl("drawer", "enabled", false));
 };
 
 export const onSetLayer = (action$, store) => {

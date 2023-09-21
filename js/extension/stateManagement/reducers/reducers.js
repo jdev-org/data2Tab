@@ -4,8 +4,7 @@ import {
     SET_FEATURE,
     SETUP,
     SET_RESPONSE,
-    SET_LAYER,
-    CLOSE_D2T,
+    SET_LAYER
 } from "../actions/actions";
 
 const initialState = {
@@ -39,13 +38,6 @@ export default function reducers(state = initialState, action) {
             return set("tab", action.index, state);
         case SETUP:
             return set("pluginCfg", action.cfg, state);
-        case CLOSE_D2T:
-            return compose(
-                set("feature", null),
-                set("response", null),
-                set("tab", 0),
-                set("layer", "")
-            )(state);
         default:
             return state;
     }
