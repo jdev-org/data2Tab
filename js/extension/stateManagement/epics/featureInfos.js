@@ -25,25 +25,14 @@ import {
     setFeature,
     SET_LAYER,
     setLayer,
-    setResponse,
-    SETUP,
-    setup
+    setResponse
 } from "../actions/actions";
 import { getFeatureInfo } from "@mapstore/api/identify";
 import {
-    drawerEnabledControlSelector,
     measureSelector,
 } from "@mapstore/selectors/controls";
 import { toggleControl } from "@mapstore/actions/controls";
 
-
-export const forceDisableDrawer = (action$, store) => action$.ofType(SETUP)
-    .filter((action) => isActive(store.getState()) && drawerEnabledControlSelector(
-        store.getState()
-    ))
-    .switchMap( () => {
-        return Rx.Observable.of(setControlProperty("drawer", "enabled", false), toggleTool("featureCloseConfirm", false));
-    });
 export const clickMap = (action$, store) => {
     return action$
         .ofType(CLICK_ON_MAP)
